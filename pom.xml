@@ -35,6 +35,7 @@
         <tk-mybatis.version>3.4.4</tk-mybatis.version>
         <kryo.version>2.24.0</kryo.version>
         <kryo-serializers.version>0.38</kryo-serializers.version>
+        <rocketmq-client.version>4.3.0</rocketmq-client.version>
     </properties>
 
     <dependencyManagement>
@@ -70,6 +71,11 @@
                 <groupId>de.javakaffee</groupId>
                 <artifactId>kryo-serializers</artifactId>
                 <version>${kryo-serializers.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq-client.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
