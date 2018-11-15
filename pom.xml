@@ -15,6 +15,7 @@
         <module>spring-cloud-api-gateway</module>
         <module>spring-cloud-common</module>
         <module>spring-cloud-domain</module>
+        <module>spring-cloud-config</module>
     </modules>
     <name>spring-cloud-dependency</name>
     <!-- FIXME change it to the project's website -->

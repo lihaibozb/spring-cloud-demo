@@ -1,4 +1,4 @@
-package com.cloud.demo.middleware;
+package com.cloud.demo.middleware.rocketmq;
 
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
