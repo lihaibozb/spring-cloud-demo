@@ -39,7 +39,7 @@ public class BAccountController {
         tAccount.setId(id);
         String returnMsg = null;
         try {
-            returnMsg = JsonUtils.obj2json(iBbService.select(tAccount));
+            returnMsg = JsonUtils.obj2json(iBbService.selectByPrimaryKey(tAccount));
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }

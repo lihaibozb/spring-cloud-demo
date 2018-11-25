@@ -16,9 +16,10 @@
         <module>spring-cloud-common</module>
         <module>spring-cloud-domain</module>
         <module>spring-cloud-config</module>
+        <module>spring-cloud-oauth2</module>
+        <module>spring-cloud-service-user</module>
     </modules>
     <name>spring-cloud-dependency</name>
-    <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
     <parent>
@@ -37,6 +38,7 @@
         <kryo.version>2.24.0</kryo.version>
         <kryo-serializers.version>0.38</kryo-serializers.version>
         <rocketmq-client.version>4.3.0</rocketmq-client.version>
+        <swagger.version>1.7.0.RELEASE</swagger.version>
     </properties>
 
     <dependencyManagement>
@@ -74,20 +76,16 @@
                 <version>${kryo-serializers.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.spring4all</groupId>
+                <artifactId>swagger-spring-boot-starter</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-client</artifactId>
                 <version>${rocketmq-client.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

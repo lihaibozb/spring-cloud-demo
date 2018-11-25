@@ -9,7 +9,7 @@ import com.cloud.demo.domain.TAccount;
  * @Description:
  */
 public interface IBbService {
-    TAccount select(TAccount tAccount);
+    TAccount selectByPrimaryKey(TAccount tAccount);
 
     int insert(TAccount tAccount);
 

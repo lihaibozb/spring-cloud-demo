@@ -8,14 +8,16 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 
 /**
-* @author lihaibo
-* @date 2018/11/8 8:46 PM
-* @version v1.0.0
-* @description 
-*/
+ * @author lihaibo
+ * @version v1.0.0
+ * @date 2018/11/8 8:46 PM
+ * @description 资源过滤器
+ * 所有的资源请求在路由之前进行前置过滤
+ * 如果请求头不包含 Authorization参数值，直接拦截不再路由
+ */
 public class AccessFilter extends ZuulFilter {
 
-    private static Logger log = LoggerFactory.getLogger(AccessFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(AccessFilter.class);
 
     @Override
     public String filterType() {
@@ -31,25 +33,28 @@ public class AccessFilter extends ZuulFilter {
     public boolean shouldFilter() {
         return true;
     }
-    
+
     @Override
     public Object run() {
 
-        RequestContext ctx = RequestContext.getCurrentContext();
-        HttpServletRequest request = ctx.getRequest();
+        RequestContext requestContext = RequestContext.getCurrentContext();
+        HttpServletRequest request = requestContext.getRequest();
 
-        log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
+        logger.info("send {} request to {}", request.getMethod(), request.getRequestURL().toString());
 
-        Object accessToken = request.getParameter("accessToken");
-        if(accessToken == null) {
-            log.warn("access token is empty");
-//            ctx.setSendZuulResponse(false);// 过滤该请求，不对其进行路由
-//            ctx.setResponseStatusCode(401);// 返回错误码
-//            ctx.setResponseBody("{\"result\":\"username is not correct!\"}");// 返回错误内容
-//            ctx.set("isSuccess", false);
-            return null;
+        Object accessToken = request.getHeader("Authorization");
+        if (accessToken == null) {
+            //支持API查看
+            if (!request.getRequestURI().contains("/api-docs")) {
+                logger.warn("Authorization token is empty");
+                requestContext.setSendZuulResponse(false);
+                requestContext.setResponseStatusCode(401);
+                requestContext.setResponseBody("Authorization token is empty");
+                return null;
+            }
         }
-        log.info("access token ok");
+        logger.info("Authorization token is ok");
+
         return null;
     }
 
