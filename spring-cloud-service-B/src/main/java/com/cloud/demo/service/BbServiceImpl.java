@@ -21,7 +21,7 @@ public class BbServiceImpl implements IBbService {
     private TAccountMapper tAccountMapper;
 
     @Override
-    public TAccount select(TAccount tAccount){
+    public TAccount selectByPrimaryKey(TAccount tAccount){
         return tAccountMapper.selectByPrimaryKey(tAccount);
     }
 

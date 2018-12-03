@@ -6,8 +6,10 @@ import com.cloud.demo.utils.JsonUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -16,10 +18,14 @@ import org.springframework.web.bind.annotation.*;
  * @date 2018-11-13
  * @Description:
  */
+@RefreshScope
 @RestController
 @RequestMapping("/v1/accounts")
 public class BAccountController {
     private static final Logger logger = LoggerFactory.getLogger(BAccountController.class);
+
+    @Value("${testConfig}")
+    private String testConfig;
 
     @Autowired
     DiscoveryClient discoveryClient;
@@ -33,7 +39,7 @@ public class BAccountController {
         tAccount.setId(id);
         String returnMsg = null;
         try {
-            returnMsg = JsonUtils.obj2json(iBbService.select(tAccount));
+            returnMsg = JsonUtils.obj2json(iBbService.selectByPrimaryKey(tAccount));
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -84,5 +90,10 @@ public class BAccountController {
                 + ", service_id:" + instance.getServiceId()
                 + ", result:" + r);
         return r;
+    }
+
+    @GetMapping("/testConfig")
+    public String testConfig() {
+        return testConfig;
     }
 }
