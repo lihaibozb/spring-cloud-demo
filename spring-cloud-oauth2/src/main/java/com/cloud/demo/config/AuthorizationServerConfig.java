@@ -48,9 +48,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        //endpoints.authenticationManager(this.authenticationManager);
-        //endpoints.accessTokenConverter(accessTokenConverter());
-        //endpoints.tokenStore(tokenStore());
         endpoints.authenticationManager(this.authenticationManager)
                 .userDetailsService(new DomainUserDetailsService())
                 .tokenStore(tokenStore());
@@ -67,13 +64,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        //clients.inMemory()
-        //        .withClient("app")
-        //        .authorizedGrantTypes("authorization_code", "implicit")
-        //        .authorities("ROLE_CLIENT")
-        //        .scopes("read","write")
-        //        .resourceIds(resourceId)
-        //        .accessTokenValiditySeconds(accessTokenValiditySeconds);
         clients.inMemory()
                 .withClient("android")
                 .scopes("xx")
