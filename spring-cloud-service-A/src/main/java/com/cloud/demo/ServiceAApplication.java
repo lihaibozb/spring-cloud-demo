@@ -4,9 +4,11 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
 @EnableDiscoveryClient
 @SpringBootApplication
+@EnableFeignClients
 @MapperScan(basePackages = "com.cloud.demo.dao")
 public class ServiceAApplication {
 
@@ -14,10 +16,4 @@ public class ServiceAApplication {
         new SpringApplicationBuilder(ServiceAApplication.class).web(true).run(args);
     }
 
-    //TODO 目前调用和oauth2一起使用时存在问题
-    //@LoadBalanced
-    //@Bean
-    //public OAuth2RestTemplate restTemplate(UserInfoRestTemplateFactory factory) {
-    //    return factory.getUserInfoRestTemplate();
-    //}
 }
