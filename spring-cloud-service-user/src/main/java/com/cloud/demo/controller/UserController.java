@@ -3,6 +3,7 @@ package com.cloud.demo.controller;
 import com.cloud.demo.domain.TUser;
 import com.cloud.demo.service.IUserService;
 import com.cloud.demo.utils.JsonUtils;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class UserController {
     @Autowired
     private IUserService iUserService;
 
+    @ApiOperation(value = "查询通过 OAuth2.0 授权后获取的用户信息", notes = "通过 OAuth2.0 授权后获取的用户信息")
     @GetMapping
     public String query(@RequestParam Long id) {
         TUser tUser = new TUser();

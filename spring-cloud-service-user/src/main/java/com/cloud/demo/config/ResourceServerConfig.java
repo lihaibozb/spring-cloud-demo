@@ -5,8 +5,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
-import javax.servlet.http.HttpServletResponse;
-
 /**
 * @author lihaibo
 * @date 2018/11/21 11:40 PM
@@ -19,14 +17,15 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
-            .and()
-                .authorizeRequests()
-                .anyRequest().authenticated()
-            .and()
-                .httpBasic();
+        http.authorizeRequests()
+                // 访问下面路径无需Token认证
+                .antMatchers("/**/v2/api-docs")
+                .permitAll()
+                // 除了上面配置的路径都需要Token认证
+                .anyRequest()
+                .authenticated()
+                .and()
+                // 暂时禁用CSRF，否则无法提交表单
+                .csrf().disable();
     }
 }

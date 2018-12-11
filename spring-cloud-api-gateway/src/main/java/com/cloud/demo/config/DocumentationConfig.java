@@ -1,4 +1,4 @@
-package com.cloud.demo.configuration;
+package com.cloud.demo.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -23,6 +23,8 @@ public class DocumentationConfig implements SwaggerResourcesProvider {
         resources.add(swaggerResource("service-a", "/service-a/v2/api-docs", "2.0"));
         resources.add(swaggerResource("service-b", "/service-b/v2/api-docs", "2.0"));
         resources.add(swaggerResource("service-user", "/service-user/v2/api-docs", "2.0"));
+        resources.add(swaggerResource("auth", "/auth-server/v2/api-docs", "2.0"));
+        resources.add(swaggerResource("zuul", "/v2/api-docs", "2.0"));
         return resources;
     }
 
