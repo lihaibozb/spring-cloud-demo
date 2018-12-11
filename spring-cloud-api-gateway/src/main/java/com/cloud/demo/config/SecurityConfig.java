@@ -1,4 +1,4 @@
-package com.cloud.demo.configuration;
+package com.cloud.demo.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  */
 @Configuration
 @EnableWebSecurity
-//@EnableOAuth2Sso
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * http安全配置

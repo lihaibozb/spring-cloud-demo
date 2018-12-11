@@ -19,7 +19,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 // 访问下面路径无需Token认证
-                .antMatchers("/auth-server/**", "/**/v2/api-docs")
+                .antMatchers("/**/v2/api-docs")
                 .permitAll()
                 // 除了上面配置的路径都需要Token认证
                 .anyRequest()

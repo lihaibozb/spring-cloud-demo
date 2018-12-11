@@ -1,4 +1,4 @@
-package com.cloud.demo.configuration;
+package com.cloud.demo.config;
 
 import org.springframework.cloud.netflix.zuul.filters.route.ZuulFallbackProvider;
 import org.springframework.http.HttpHeaders;

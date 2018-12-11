@@ -38,8 +38,12 @@
         </dependency>
 
         <dependency>
-            <groupId>com.spring4all</groupId>
-            <artifactId>swagger-spring-boot-starter</artifactId>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
         </dependency>
 
         <dependency>
