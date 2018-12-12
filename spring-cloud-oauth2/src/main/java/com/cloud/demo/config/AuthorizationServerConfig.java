@@ -66,12 +66,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
                 .withClient("android")
-                .scopes("xx")
+                .scopes("read","write")
                 .secret("android")
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")
                 .and()
                 .withClient("webapp")
-                .scopes("xx")
+                .scopes("read","write")
                 .authorizedGrantTypes("implicit");
     }
 
