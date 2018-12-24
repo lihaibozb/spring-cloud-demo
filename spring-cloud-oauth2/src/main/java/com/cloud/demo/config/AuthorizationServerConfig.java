@@ -1,7 +1,10 @@
 package com.cloud.demo.config;
 
 import com.cloud.demo.security.DomainUserDetailsService;
+import com.cloud.demo.utils.PubUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -11,7 +14,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.util.StringUtils;
 
 /**
  * @author lihaibo
@@ -20,37 +27,49 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
  * @Description: 授权服务器配置
  */
 @Configuration
+@RefreshScope
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-    @Autowired
-    private AuthenticationManager authenticationManager;    // 认证管理器
 
+    /**
+     * 认证管理器
+     */
     @Autowired
-    private RedisConnectionFactory redisConnectionFactory;  // redis连接工厂
+    private AuthenticationManager authenticationManager;
 
-    //@Value("${resource.id:spring-boot-application}")
-    //private String resourceId;  // 资源id
-    //
-    //@Value("${access_token.validity_period:3600}")
-    //private int accessTokenValiditySeconds = 3600;  //资源令牌验证过期时间
+    /**
+     * redis连接工厂
+     */
+    @Autowired
+    private RedisConnectionFactory redisConnectionFactory;
+
+    @Value("${tokenType}")
+    private String tokenType;
 
     /**
      * 令牌存储
+     *
      * @return redis令牌存储对象
      */
     @Bean
-    public RedisTokenStore tokenStore() {
-        return new RedisTokenStore(redisConnectionFactory);
+    public TokenStore tokenStore() {
+        if (StringUtils.isEmpty(tokenType) || PubUtils.OAuth.TOKEN_TYPE_ACCESS.equals(tokenType)) {
+            return new RedisTokenStore(redisConnectionFactory);
+        } else {
+            return new JwtTokenStore(accessTokenConverter());
+        }
     }
-    //public TokenStore tokenStore() {
-    //    return new JwtTokenStore(accessTokenConverter());
-    //}
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(this.authenticationManager)
                 .userDetailsService(new DomainUserDetailsService())
                 .tokenStore(tokenStore());
+
+        //如果为设置JWT token转换器
+        if (PubUtils.OAuth.TOKEN_TYPE_JWT.equals(tokenType)) {
+            endpoints.accessTokenConverter(accessTokenConverter());
+        }
     }
 
 
@@ -77,30 +96,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     /**
      * Jwt资源令牌转换器
+     *
      * @return accessTokenConverter
      */
-    //@Bean
-    //public JwtAccessTokenConverter accessTokenConverter(){
-    //    return new JwtAccessTokenConverter(){
-    //
-    //        /**
-    //         * 重写增强token的方法
-    //         * @param accessToken 资源令牌
-    //         * @param authentication 认证
-    //         * @return 增强的OAuth2AccessToken对象
-    //         */
-    //        @Override
-    //        public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-    //
-    //            String userName = authentication.getUserAuthentication().getName();
-    //            User user = (User) authentication.getUserAuthentication().getPrincipal();
-    //            Map<String,Object> infoMap = new HashMap<>();
-    //            infoMap.put("userName",userName);
-    //            infoMap.put("roles",user.getAuthorities());
-    //            ((DefaultOAuth2AccessToken)accessToken).setAdditionalInformation(infoMap);
-    //            return super.enhance(accessToken, authentication);
-    //        }
-    //    };
-    //}
+    @Bean
+    public JwtAccessTokenConverter accessTokenConverter() {
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        converter.setSigningKey(PubUtils.OAuth.TOKEN_JWT_KEY);
+        return converter;
+    }
 
 }
