@@ -1,12 +1,9 @@
 package com.cloud.demo.config;
 
 import com.cloud.demo.security.DomainUserDetailsService;
-import com.cloud.demo.utils.PubUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -17,10 +14,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
-import org.springframework.util.StringUtils;
 
 /**
  * @author lihaibo
@@ -29,7 +23,6 @@ import org.springframework.util.StringUtils;
  * @Description: 授权服务器配置
  */
 @Configuration
-@RefreshScope
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
     private static final Logger logger = LoggerFactory.getLogger(AuthorizationServerConfig.class);
@@ -45,9 +38,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
 
-    @Value("${tokenType}")
-    private String tokenType;
-
     /**
      * 令牌存储
      *
@@ -55,12 +45,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Bean
     public TokenStore tokenStore() {
-        if (StringUtils.isEmpty(tokenType) || PubUtils.OAuth.TOKEN_TYPE_ACCESS.equals(tokenType)) {
-            return new RedisTokenStore(redisConnectionFactory);
-        } else {
-            logger.info("tokenStore():===========>tokenType:jwt");
-            return new JwtTokenStore(accessTokenConverter());
-        }
+        return new RedisTokenStore(redisConnectionFactory);
     }
 
     @Override
@@ -68,12 +53,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         endpoints.authenticationManager(this.authenticationManager)
                 .userDetailsService(new DomainUserDetailsService())
                 .tokenStore(tokenStore());
-
-        //如果为设置JWT token转换器
-        if (PubUtils.OAuth.TOKEN_TYPE_JWT.equals(tokenType)) {
-            logger.info("configure():===========>tokenType:jwt");
-            endpoints.accessTokenConverter(accessTokenConverter());
-        }
     }
 
 
@@ -96,18 +75,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .withClient("webapp")
                 .scopes("all")
                 .authorizedGrantTypes("implicit");
-    }
-
-    /**
-     * Jwt资源令牌转换器
-     *
-     * @return accessTokenConverter
-     */
-    @Bean
-    public JwtAccessTokenConverter accessTokenConverter() {
-        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(PubUtils.OAuth.TOKEN_JWT_KEY);
-        return converter;
     }
 
 }
