@@ -33,17 +33,18 @@
             <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
 
-        <!-- Cache 缓存依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
+        <!--&lt;!&ndash; Cache 缓存依赖 &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-cache</artifactId>-->
+        <!--</dependency>-->
 
-        <!-- Redis 数据源依赖 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
+        <!--&lt;!&ndash; Redis 数据源依赖 &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-data-redis</artifactId>-->
+        <!--</dependency>-->
+
         <dependency>
             <groupId>com.cloud.demo</groupId>
             <artifactId>spring-cloud-domain</artifactId>
@@ -86,11 +87,6 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-bean-validators</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
 
     </dependencies>
