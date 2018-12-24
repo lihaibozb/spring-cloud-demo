@@ -2,10 +2,13 @@ package com.cloud.demo.service;
 
 import com.cloud.demo.dao.TAccountMapper;
 import com.cloud.demo.domain.TAccount;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 /**
  * @author lihaibo
@@ -19,6 +22,14 @@ public class AaServiceImpl implements IAaService {
 
     @Autowired
     private TAccountMapper tAccountMapper;
+
+    @Override
+    public PageInfo<TAccount> selectAll(int pageNum, int pageSize) {
+        Example example = new Example(TAccount.class);
+        PageHelper.startPage(pageNum, pageSize);
+        PageInfo<TAccount> pageInfo = new PageInfo<>(tAccountMapper.selectByExample(example));
+        return pageInfo;
+    }
 
     @Override
     public TAccount selectByPrimaryKey(TAccount tAccount){

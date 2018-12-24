@@ -39,6 +39,7 @@
         <kryo-serializers.version>0.38</kryo-serializers.version>
         <rocketmq-client.version>4.3.0</rocketmq-client.version>
         <swagger.version>2.8.0</swagger.version>
+        <pagehelper.version>1.2.3</pagehelper.version>
     </properties>
 
     <dependencyManagement>
@@ -95,6 +96,12 @@
                 <artifactId>rocketmq-client</artifactId>
                 <version>${rocketmq-client.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

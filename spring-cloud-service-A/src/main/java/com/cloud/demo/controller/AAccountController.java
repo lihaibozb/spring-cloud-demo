@@ -35,6 +35,18 @@ public class AAccountController {
     @Autowired
     private IAaService iAaService;
 
+    @GetMapping("/selectAll")
+    public String selectAll(@RequestParam int pageNum, @RequestParam int pageSize){
+        String returnMsg = null;
+        try {
+            returnMsg = JsonUtils.obj2json(iAaService.selectAll(pageNum, pageSize));
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return returnMsg;
+    }
+
+
     @GetMapping
     public String query(@RequestParam Long id){
         TAccount tAccount = new TAccount();
