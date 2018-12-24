@@ -54,12 +54,12 @@ public class SwaggerConfig {
 
     @Bean
     public SecurityScheme apiKey() {
-        return new ApiKey(HttpHeaders.AUTHORIZATION, "apiKey", "header");
+        return new ApiKey(HttpHeaders.AUTHORIZATION, "access_token", "header");
     }
 
     @Bean
     public SecurityScheme apiCookieKey() {
-        return new ApiKey(HttpHeaders.COOKIE, "apiKey", "cookie");
+        return new ApiKey(HttpHeaders.COOKIE, "access_token", "cookie");
     }
 
     private OAuth securitySchema() {

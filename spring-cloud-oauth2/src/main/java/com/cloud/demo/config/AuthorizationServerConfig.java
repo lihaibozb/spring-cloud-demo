@@ -2,6 +2,8 @@ package com.cloud.demo.config;
 
 import com.cloud.demo.security.DomainUserDetailsService;
 import com.cloud.demo.utils.PubUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -30,7 +32,7 @@ import org.springframework.util.StringUtils;
 @RefreshScope
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-
+    private static final Logger logger = LoggerFactory.getLogger(AuthorizationServerConfig.class);
     /**
      * 认证管理器
      */
@@ -56,6 +58,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         if (StringUtils.isEmpty(tokenType) || PubUtils.OAuth.TOKEN_TYPE_ACCESS.equals(tokenType)) {
             return new RedisTokenStore(redisConnectionFactory);
         } else {
+            logger.info("tokenStore():===========>tokenType:jwt");
             return new JwtTokenStore(accessTokenConverter());
         }
     }
@@ -68,6 +71,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
         //如果为设置JWT token转换器
         if (PubUtils.OAuth.TOKEN_TYPE_JWT.equals(tokenType)) {
+            logger.info("configure():===========>tokenType:jwt");
             endpoints.accessTokenConverter(accessTokenConverter());
         }
     }
