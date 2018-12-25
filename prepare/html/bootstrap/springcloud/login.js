@@ -5,7 +5,7 @@ $(document).ready(function() {
 		var userName = $("#userName").val();
 		var password = $("#password").val();
 		ajaxServerAfun("GET", baseURI + "/service-user/v1/login", {userName: userName, password: password},
-		'ea13a7c8-771c-43e2-b737-02d0569db6b4', null, null);
+		null, null, null);
 	});
 
 });

@@ -106,11 +106,61 @@ spring-cloud-service-user模块的数据库连接用户名密码;
 
 ### eureka服务注册状态
 登录http://localhost:10001/，查看eureka服务注册状态：<br/>
-![启动演示](prepare/images/eureka.png) {:width="800px" height="600px"}
+![启动演示](prepare/images/eureka.png)
 
 ### API DOC
+登录http://localhost:5555/swagger-ui.html#/,可查看所有微服务的api doc：<br/>
+![启动演示](prepare/images/swagger2.png)
+
+点开一个接口文档，点击右上角的Try it out，输入请求入参，点击Execute执行按钮，
+可以看到401未经授权：访问由于凭据无效被拒绝的错误<br/>
+![启动演示](prepare/images/api_401.png)
+
+#### API 授权
+点击右上角的Authorize的按钮（带锁图标）,弹出API授权页面，选择oauth2授权，
+输入存储在mysql的用户名和密码信息、鉴权服务器中存储的客户端认证信息，
+点击Authorize按钮完成认证。<br/>
+![启动演示](prepare/images/api_oauth2.png)
+
+认证成功后,右上角会有锁定的标志，重新测试api的接口，可观察到请求的header头中已经添加了Bearer token信息，
+接口已经可正常的返回相关信息：<br/>
+![启动演示](prepare/images/api_success.png)
+
+### 服务调用
+该springcloud项目下所有的微服务都需要经过API网关进行请求转发、oauth2进行资源服务鉴权。
+1. oauth2鉴权，打开postman，选择POST方式，访问http://localhost:5555/uaa/oauth/token?grant_type=password，
+输入用户名密码、客户端认证信息、head信息（Content-Type：application/x-www-form-urlencoded，Accept：application/json）,
+点击send，可观察到返回的信息中带有token信息: <br/>
+![启动演示](prepare/images/postman_oauth2.png)
+
+2. 通过网关访问微服务，有两种token传输方式，第一种直接在url中添加access_token参数，第二种通过http head添加Bearer token信息，
+如果只有一层调用（没有服务间调用），无需额外处理，即可调用资源服务： <br/>
+![启动演示](prepare/images/postman_service_1.png)
+
+3. springcloud微服务之间调用方式有两种，第一种ribbon，通过rest调用；
+第二种feign,包含ribbon,通过接口调用（类似本地调用）；feign服务调用默认不会传递header头信息，
+需要额外处理（详见FeignBasicAuthRequestInterceptor.java）： <br/>
+![启动演示](prepare/images/postman_service_2.png)
+
+### 前后端分离登录演示
+1. 留言器登录： [http://www.lly824.com:8080/springcloud/login.html](http://www.lly824.com:8080/springcloud/login.html) ，
+进入登录页，输入用户名密码信息， <br/>
+![启动演示](prepare/images/login_1.png)
+
+登录成功后会返回token信息（详见LoginController.java）: <br/>
+![启动演示](prepare/images/login_2.png)
+
+点击确定跳转至其他页面，此时客户端已经保存了对应的token信息，此时访问其他资源时，带上对应的header头信息，
+可正常访问所需的资源服务：<br/>
+![启动演示](prepare/images/login_3.png)
+
+### JWT token
 
 
-    
+
+
+
+
+
 
 
