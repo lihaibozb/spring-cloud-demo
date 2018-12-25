@@ -10,6 +10,8 @@ import com.cloud.demo.domain.TUser;
  */
 public interface IUserService {
 
+    TUser selectOne(TUser tUser);
+
     TUser selectByPrimaryKey(TUser tUser);
 
     int insert(TUser tUser);

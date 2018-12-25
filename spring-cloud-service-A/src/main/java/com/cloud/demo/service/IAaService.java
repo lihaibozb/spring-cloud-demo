@@ -1,6 +1,7 @@
 package com.cloud.demo.service;
 
 import com.cloud.demo.domain.TAccount;
+import com.github.pagehelper.PageInfo;
 
 /**
  * @author lihaibo
@@ -9,6 +10,9 @@ import com.cloud.demo.domain.TAccount;
  * @Description:
  */
 public interface IAaService {
+
+    PageInfo<TAccount> selectAll(int pageNum, int pageSize);
+
     TAccount selectByPrimaryKey(TAccount tAccount);
 
     int insert(TAccount tAccount);

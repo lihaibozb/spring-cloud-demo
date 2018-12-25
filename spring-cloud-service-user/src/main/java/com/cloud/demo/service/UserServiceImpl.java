@@ -20,6 +20,11 @@ public class UserServiceImpl implements IUserService{
     private TUserMapper tUserMapper;
 
     @Override
+    public TUser selectOne(TUser tUser) {
+        return tUserMapper.selectOne(tUser);
+    }
+
+    @Override
     public TUser selectByPrimaryKey(TUser tUser) {
         return tUserMapper.selectByPrimaryKey(tUser);
     }
