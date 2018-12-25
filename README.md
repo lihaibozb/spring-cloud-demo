@@ -103,9 +103,10 @@ spring-cloud-service-user模块的数据库连接用户名密码;
     - spring-cloud-service-user
 
 ## 演示
-登录http://localhost:10001/，查看eureka服务注册状态：
 
-<img src="prepare/images/eureka.png" width = "800px" height = "600px" div align=right />
+### eureka服务注册状态
+登录http://localhost:10001/，查看eureka服务注册状态：<br/>
+![启动演示](prepare/images/eureka.png) {:width="800px" height="600px"}
 
 ### API DOC
 
