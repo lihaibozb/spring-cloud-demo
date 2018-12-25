@@ -105,11 +105,11 @@ spring-cloud-service-user模块的数据库连接用户名密码;
 ## 演示
 
 ### eureka服务注册状态
-登录http://localhost:10001/，查看eureka服务注册状态：<br/>
+登录http://localhost:10001/ ，查看eureka服务注册状态：<br/>
 ![启动演示](prepare/images/eureka.png)
 
 ### API DOC
-登录http://localhost:5555/swagger-ui.html#/,可查看所有微服务的api doc：<br/>
+登录http://localhost:5555/swagger-ui.html#/ ，可查看所有微服务的api doc：<br/>
 ![启动演示](prepare/images/swagger2.png)
 
 点开一个接口文档，点击右上角的Try it out，输入请求入参，点击Execute执行按钮，
@@ -143,7 +143,7 @@ spring-cloud-service-user模块的数据库连接用户名密码;
 ![启动演示](prepare/images/postman_service_2.png)
 
 ### 前后端分离登录演示
-1. 留言器登录： [http://www.lly824.com:8080/springcloud/login.html](http://www.lly824.com:8080/springcloud/login.html) ，
+1. 浏览器输入： [http://www.lly824.com:8080/springcloud/login.html](http://www.lly824.com:8080/springcloud/login.html) ，
 进入登录页，输入用户名密码信息， <br/>
 ![启动演示](prepare/images/login_1.png)
 
@@ -155,6 +155,10 @@ spring-cloud-service-user模块的数据库连接用户名密码;
 ![启动演示](prepare/images/login_3.png)
 
 ### JWT token
+将工程切换至develop分支，按顺序启用各个微服务组件，此时鉴权时可观察到token信息如下，
+
+jwt token中可携带自定义的信息，如用户基本信息、权限信息等，
+
 
 
 
