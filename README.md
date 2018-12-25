@@ -1,6 +1,6 @@
 # springcloud
 ## 简介
-springcloud + oauth2 + nginx + 前后端分离，网关API,API-doc,服务令牌颁发、登录鉴权,服务调用鉴权处理等；
+springcloud + oauth2 + nginx + 前后端分离，网关API、API-doc，服务令牌颁发、登录鉴权,服务调用鉴权处理等；
 
 ## 分支信息
 分支信息 | 内容
@@ -48,7 +48,7 @@ spring-cloud-demo
 技术 | 名称 | 官网
 ----|------|----
 SpringBoot | 服务端框架  | 
-spring-cloud-starter-zuul | MVC框架  | API网关
+spring-cloud-starter-zuul | API网关  | 
 spring-cloud-starter-oauth2 | 令牌颁发、鉴权 | 
 spring-cloud-config-server | 配置中心  |
 spring-cloud-starter-eureka-server | 服务注册中心  |
