@@ -86,12 +86,12 @@ jquery | js类库  |
     ```
 2. 配置nginx,添加静态资源地址，地址指向/prepare/html/bootstrap文件夹，启动nginx，浏览器访问如下地址：
  [http://www.lly824.com:8080/springcloud/login.html](http://www.lly824.com:8080/springcloud/login.html)
-，如果正常访问，说明配置正确
+，如果正常访问，说明配置正确;
 
-3. 启动redis，用于oauth2存储token令牌，如果不是默认端口，修改spring-cloud-oauth2下的redis配置端口号
+3. 启动redis，用于oauth2存储token令牌存储器，如果redis不是默认端口，修改spring-cloud-oauth2下的redis配置端口号;
 
 4. 启动mysql，执行/prepare/sql下的文件，并修改spring-cloud-oauth2、spring-cloud-service-A、spring-cloud-service-B、
-spring-cloud-service-user模块的数据库连接用户名密码
+spring-cloud-service-user模块的数据库连接用户名密码;
 
 5. 启动springcloud，启动顺序：
     - spring-cloud-eureka
@@ -103,6 +103,12 @@ spring-cloud-service-user模块的数据库连接用户名密码
     - spring-cloud-service-user
 
 ## 演示
+登录http://localhost:10001/，查看eureka服务注册状态：
+![启动演示](prepare/images/eureka.png){:width="800px" height="600px"}
+
+### API DOC
+
+
     
 
 
