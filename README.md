@@ -155,9 +155,9 @@ spring-cloud-service-user模块的数据库连接用户名密码;
 ![启动演示](prepare/images/login_3.png)
 
 ### JWT token
-将工程切换至develop分支，按顺序启用各个微服务组件，此时鉴权时可观察到token信息如下，
-
-jwt token中可携带自定义的信息，如用户基本信息、权限信息等，
+将工程切换至develop分支，按顺序启用各个微服务组件，此时鉴权时可观察到token信息如下，<br/>
+![启动演示](prepare/images/jwt_1.png)
+jwt token中可携带自定义的信息，如用户基本信息、权限信息等，其他操作基本和access_token一样
 
 
 
