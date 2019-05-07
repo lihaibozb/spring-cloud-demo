@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.demo.mapper.TBuildDependencyMapper">
+  <resultMap id="BaseResultMap" type="com.cloud.demo.domain.TBuildDependency">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="dependency_id" jdbcType="VARCHAR" property="dependencyId" />
+    <result column="build_id" jdbcType="VARCHAR" property="buildId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="packaging" jdbcType="VARCHAR" property="packaging" />
+    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+    <result column="artifact_id" jdbcType="VARCHAR" property="artifactId" />
+    <result column="version" jdbcType="VARCHAR" property="version" />
+    <result column="scope" jdbcType="VARCHAR" property="scope" />
+    <result column="parent" jdbcType="VARCHAR" property="parent" />
+    <result column="parent_type" jdbcType="VARCHAR" property="parentType" />
+  </resultMap>
+</mapper>

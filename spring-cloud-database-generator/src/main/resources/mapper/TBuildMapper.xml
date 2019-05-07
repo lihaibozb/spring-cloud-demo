@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.demo.mapper.TBuildMapper">
+  <resultMap id="BaseResultMap" type="com.cloud.demo.domain.TBuild">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="build_id" jdbcType="VARCHAR" property="buildId" />
+    <result column="build_name" jdbcType="VARCHAR" property="buildName" />
+    <result column="build_number" jdbcType="VARCHAR" property="buildNumber" />
+    <result column="build_time" jdbcType="TIMESTAMP" property="buildTime" />
+    <result column="build_log_file_path" jdbcType="VARCHAR" property="buildLogFilePath" />
+    <result column="build_workspace_folder_path" jdbcType="VARCHAR" property="buildWorkspaceFolderPath" />
+    <result column="host_address" jdbcType="VARCHAR" property="hostAddress" />
+    <result column="maven_project" jdbcType="TINYINT" property="mavenProject" />
+  </resultMap>
+</mapper>
